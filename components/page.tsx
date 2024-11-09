@@ -98,23 +98,6 @@ const cars = [
     description: 'SUV robuste et polyvalent.'
   },
   { 
-    name: 'Dacia Sandero', 
-    type: 'Économique', 
-    image: '/sandero.jpeg',
-    price: '300 DH/jour',
-    fuel: 'Diesel',
-    transmission: 'Manuelle',
-    features: [
-      '5 places',
-      'Climatisation',
-      'Bluetooth',
-      'ABS',
-      'Airbags',
-      'Direction assistée'
-    ],
-    description: 'Citadine moderne et pratique.'
-  },
-  { 
     name: 'Dacia Stepway', 
     type: 'SUV', 
     image: '/stepway.webp',
@@ -236,6 +219,24 @@ const cars = [
     ],
     description: 'Citadine polyvalente et économique.'
   },
+  {
+    name: 'Peugeot 208',
+    type: 'Économique',
+    image: '/208.jpeg',
+    price: '300 DH/jour',
+    fuel: 'Diesel',
+    transmission: 'Manuelle',
+    features: [
+      '5 places',
+      'Climatisation',
+      'Bluetooth',
+      'ABS',
+      'Airbags',
+      'Direction assistée',
+      'Écran tactile'
+    ],
+    description: 'Citadine moderne au design distinctif avec un excellent confort de conduite.'
+  },
   { 
     name: 'Opel Crossland', 
     type: 'SUV', 
@@ -253,7 +254,8 @@ const cars = [
       'Caméra de recul'
     ],
     description: 'SUV compact pratique et confortable pour la ville comme pour les voyages.'
-  }
+  },
+  
 ]
 
 export function HomePage() {
@@ -287,7 +289,7 @@ export function HomePage() {
 
   const handleReservation = (carName: string) => {
     const message = encodeURIComponent(`Bonjour, je souhaite réserver la voiture ${carName}. Pouvez-vous me donner plus d'informations ?`)
-    window.open(`https://wa.me/212709151391?text=${message}`, '_blank')
+    window.open(`https://wa.me/212661551965?text=${message}`, '_blank')
   }
 
   const toggleLanguage = () => {
@@ -759,7 +761,7 @@ export function HomePage() {
                     className="mt-6 bg-blue-800 hover:bg-blue-700 text-white transition-colors duration-300 flex items-center justify-center gap-2"
                     onClick={() => {
                       const message = encodeURIComponent(t.contactMessage)
-                      window.open(`https://wa.me/212709151391?text=${message}`, '_blank')
+                      window.open(`https://wa.me/212661551965?text=${message}`, '_blank')
                     }}
                   >
                     <WhatsappIcon className="h-5 w-5" />
@@ -781,7 +783,7 @@ export function HomePage() {
             </div>
             <div className="flex space-x-6">
               <a 
-                href="https://facebook.com" 
+                href="https://www.facebook.com/maherlocation" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-[#FFD700] hover:text-[#FFD700]/80 transition-colors duration-300"
@@ -789,7 +791,7 @@ export function HomePage() {
                 <Facebook size={24} />
               </a>
               <a 
-                href="https://instagram.com" 
+                href="https://www.instagram.com/jeffal_car/?__pwa=1" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-[#FFD700] hover:text-[#FFD700]/80 transition-colors duration-300"
