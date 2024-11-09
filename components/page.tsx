@@ -484,7 +484,7 @@ export function HomePage() {
       {/* Home Section */}
       <section id="home" className="relative h-screen flex items-center justify-center">
         <Image
-          src="/post.jpg"
+          src="/post1.jpg"
           alt="Jeffal Car Hero"
           layout="fill"
           objectFit="cover"
@@ -902,7 +902,7 @@ export function HomePage() {
             </div>
             <div className="flex space-x-6">
               <a 
-                href="https://www.facebook.com/maherlocation" 
+                href="https://www.facebook.com/jeffal.med.5" 
                 target="_blank" 
                 rel="noopener noreferrer" 
                 className="text-[#FFD700] hover:text-[#FFD700]/80 transition-colors duration-300"
