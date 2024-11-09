@@ -18,12 +18,12 @@ export const translations = {
     dailyPrice: "Prix journalier",
     insurance: "Assurance incluse",
     mileage: "Kilométrage",
-    unlimited: "Illimité",
+    mileageLimit: "250 km/jour",
     bookNow: "Réserver sur WhatsApp",
     carFeatures: {
       seats: "5 places",
       ac: "Climatisation",
-      manual: "Manuelle",
+      manual: "Automatique",
       diesel: "Diesel",
       bluetooth: "Bluetooth",
       abs: "ABS",
@@ -71,9 +71,9 @@ export const translations = {
         name: "Aéroport de Marrakech",
         fullName: "Menara Airport"
       },
-      tangier: {
-        name: "Aéroport de Tanger",
-        fullName: "Ibn Battouta Airport"
+      oujda: {
+        name: "Aéroport d'Oujda",
+        fullName: "Angads Airport"
       }
     },
     bookShuttle: "Réserver une Navette",
@@ -107,12 +107,12 @@ export const translations = {
     dailyPrice: "السعر اليومي",
     insurance: "التأمين مشمول",
     mileage: "المسافة",
-    unlimited: "غير محدود",
+    mileageLimit: "250 كم/يوم",
     bookNow: "احجز عبر واتساب",
     carFeatures: {
       seats: "5 مقاعد",
       ac: "تكييف",
-      manual: "يدوي",
+      manual: "أوتوماتيك",
       diesel: "ديزل",
       bluetooth: "بلوتوث",
       abs: "نظام الفرامل",
@@ -144,7 +144,7 @@ export const translations = {
     whyChooseUs: "لماذا تختارنا؟",
     advantages: {
       insured: "سيارات مؤمنة وجيدة الصيانة",
-      available: "خدمة متوفرة 7/7",
+      available: "خدمة متوفرة 7/7 أيام",
       transparent: "أسعار شفافة بدون رسوم خفية"
     },
 
@@ -160,9 +160,9 @@ export const translations = {
         name: "مطار مراكش",
         fullName: "مطار المنارة"
       },
-      tangier: {
-        name: "مطار طنجة",
-        fullName: "مطار ابن بطوطة"
+      oujda: {
+        name: "مطار أوجدة",
+        fullName: "مطار الأغادر"
       }
     },
     bookShuttle: "احجز خدمة النقل",

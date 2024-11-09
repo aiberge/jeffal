@@ -32,7 +32,7 @@ const cars = [
   { 
     name: 'Citroën C3', 
     type: 'Économique', 
-    image: '/c3.jpg',
+    image: '/c3e.jpg',
     price: '249 DH/jour',
     fuel: 'Diesel',
     transmission: 'Manuelle',
@@ -49,7 +49,7 @@ const cars = [
   { 
     name: 'Renault Clio 5', 
     type: 'Économique', 
-    image: '/clio4.jpeg',
+    image: '/clio24.jpg',
     price: '300 DH/jour',
     fuel: 'Diesel',
     transmission: 'Manuelle',
@@ -135,7 +135,7 @@ const cars = [
     name: 'Volkswagen T-Roc', 
     type: 'SUV', 
     image: '/te.jpg',
-    price: '500 DH/jour',
+    price: '600 DH/jour',
     fuel: 'Diesel',
     transmission: 'Automatique',
     features: [
@@ -150,9 +150,9 @@ const cars = [
     description: 'SUV compact moderne avec un excellent confort de conduite.'
   },
   { 
-    name: 'Range Rover Velar', 
+    name: 'Range Rover evoque', 
     type: 'SUV Premium', 
-    image: '/rang.jpg',
+    image: '/range.jpg',
     price: '890 DH/jour',
     fuel: 'Diesel',
     transmission: 'Automatique',
@@ -191,7 +191,7 @@ const cars = [
     image: '/accent.png',
     price: '300 DH/jour',
     fuel: 'Diesel',
-    transmission: 'Manuelle',
+    transmission: 'Automatique',
     features: [
       '5 places',
       'Climatisation',
@@ -260,22 +260,11 @@ const cars = [
 
 export function HomePage() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const [scrollY, setScrollY] = useState(0)
   const [selectedCar, setSelectedCar] = useState<typeof cars[0] | null>(null)
   const [isDialogOpen, setIsDialogOpen] = useState(false)
   const [language, setLanguage] = useState<'FR' | 'AR'>('FR')
 
   const t = translations[language]
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-    }
-
-    window.addEventListener('scroll', handleScroll, { passive: true })
-
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen)
 
@@ -312,70 +301,190 @@ export function HomePage() {
       `}</style>
 
       {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrollY > 50 
-          ? 'bg-gradient-to-r from-blue-900/90 to-blue-800/90 backdrop-blur-md shadow-md py-1'
-          : 'bg-transparent py-2'
-      }`}>
-        <div className="container mx-auto px-4 flex justify-between items-center">
-          <div className="flex items-center">
-            <Image
-              src="/jeffal.png"
-              alt="Jeffal Car Logo"
-              width={150}
-              height={150}
-              className="mr-2"
-            />
-          </div>
-          <div className="hidden md:flex space-x-4">
-            {(['home', 'catalog', 'about', 'contact'] as const).map((section) => (
+      <nav className="absolute top-0 left-0 right-0 z-50 bg-transparent py-2">
+        <div className="container mx-auto px-4">
+          {/* Fixed width container with absolute positioning for static layout */}
+          <div className="relative flex items-center justify-between" style={{ direction: 'ltr' }}>
+            {/* Logo - Fixed position */}
+            <div className="w-[220px]">
+              <Image
+                src="/jeffal.png"
+                alt="Jeffal Car Logo"
+                width={220}
+                height={220}
+                className="mr-2"
+              />
+            </div>
+
+            {/* Center Navigation Buttons - Fixed position */}
+            <div className="hidden md:flex items-center justify-center space-x-8 flex-1 mx-8">
               <Button
-                key={section}
                 variant="ghost"
-                onClick={() => scrollToSection(section)}
-                className="transition-colors duration-300 text-white hover:text-[#FFD700]"
+                onClick={() => scrollToSection('home')}
+                className="transition-colors duration-300 text-white hover:text-[#FFD700] w-24"
               >
-                {section}
+                Accueil
               </Button>
-            ))}
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('catalog')}
+                className="transition-colors duration-300 text-white hover:text-[#FFD700] w-24"
+              >
+                Catalogue
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('about')}
+                className="transition-colors duration-300 text-white hover:text-[#FFD700] w-24"
+              >
+                À Propos
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={() => scrollToSection('contact')}
+                className="transition-colors duration-300 text-white hover:text-[#FFD700] w-24"
+              >
+                Contact
+              </Button>
+            </div>
+
+            {/* Right Side Items - Fixed position */}
+            <div className="hidden md:flex items-center space-x-6 w-[300px] justify-end">
+              {/* Language toggle */}
+              <Button
+                variant="ghost"
+                onClick={toggleLanguage}
+                className="text-white hover:text-[#FFD700] transition-colors duration-300 flex items-center gap-2 w-20"
+              >
+                <Globe className="h-4 w-4 text-[#FFD700]" />
+                <span>{language}</span>
+              </Button>
+
+              {/* Phone number - Updated to open WhatsApp */}
+              <a 
+                href="https://wa.me/212661551965"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[#FFD700] hover:text-[#FFD700]/80 transition-colors duration-300 flex items-center gap-2 whitespace-nowrap"
+              >
+                <WhatsappIcon size={20} />
+                <span className="font-semibold">+212 661-551965</span>
+              </a>
+            </div>
+
+            {/* Mobile Menu Button - Fixed position */}
+            <Button variant="ghost" className="md:hidden py-1" onClick={toggleMenu}>
+              {isMenuOpen ? 
+                <X className="text-white" /> : 
+                <Menu className="text-white" />
+              }
+            </Button>
           </div>
-          <Button
-            variant="ghost"
-            onClick={toggleLanguage}
-            className="text-white hover:text-[#FFD700] transition-colors duration-300 flex items-center gap-2"
-          >
-            <Globe className="h-4 w-4 text-[#FFD700]" />
-            <span>{language}</span>
-          </Button>
-          <Button variant="ghost" className="md:hidden py-1" onClick={toggleMenu}>
-            {isMenuOpen ? 
-              <X className="text-white" /> : 
-              <Menu className="text-white" />
-            }
-          </Button>
         </div>
       </nav>
 
       {/* Mobile Menu */}
       {isMenuOpen && (
-        <div className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center">
-          {['home', 'catalog', 'about', 'contact'].map((section) => (
+        <div className="fixed inset-0 z-40 bg-white flex flex-col items-center justify-center p-4 overflow-y-auto" style={{ direction: 'ltr' }}>
+          {/* Close button */}
+          <Button 
+            variant="ghost" 
+            className="absolute top-4 right-4" 
+            onClick={() => setIsMenuOpen(false)}
+          >
+            <X className="h-6 w-6" />
+          </Button>
+
+          {/* Logo for mobile */}
+          <div className="mb-8">
+            <Image
+              src="/jeffal.png"
+              alt="Jeffal Car Logo"
+              width={150}
+              height={150}
+            />
+          </div>
+
+          {/* Navigation Links */}
+          <div className="flex flex-col items-center space-y-4 mb-8">
             <Button
-              key={section}
               variant="ghost"
-              onClick={() => scrollToSection(section)}
-              className="text-2xl mb-4 hover:text-orange-500"
+              onClick={() => scrollToSection('home')}
+              className="text-xl hover:text-orange-500"
             >
-              {section.charAt(0).toUpperCase() + section.slice(1)}
+              Accueil
             </Button>
-          ))}
+            <Button
+              variant="ghost"
+              onClick={() => scrollToSection('catalog')}
+              className="text-xl hover:text-orange-500"
+            >
+              Catalogue
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => scrollToSection('about')}
+              className="text-xl hover:text-orange-500"
+            >
+              À Propos
+            </Button>
+            <Button
+              variant="ghost"
+              onClick={() => scrollToSection('contact')}
+              className="text-xl hover:text-orange-500"
+            >
+              Contact
+            </Button>
+          </div>
+
+          {/* Language and Contact */}
+          <div className="flex flex-col items-center space-y-4">
+            <Button
+              variant="ghost"
+              onClick={toggleLanguage}
+              className="text-xl hover:text-orange-500 flex items-center gap-2"
+            >
+              <Globe className="h-5 w-5" />
+              {language}
+            </Button>
+            
+            <a 
+              href="https://wa.me/212661551965"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xl text-[#FFD700] hover:text-[#FFD700]/80 flex items-center gap-2"
+            >
+              <WhatsappIcon className="h-5 w-5" />
+              +212 661-551965
+            </a>
+
+            {/* Social Media Links */}
+            <div className="flex space-x-4 mt-4">
+              <a 
+                href="https://www.facebook.com/maherlocation" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-blue-600 hover:text-blue-700"
+              >
+                <Facebook size={24} />
+              </a>
+              <a 
+                href="https://www.instagram.com/jeffal_car/?__pwa=1" 
+                target="_blank" 
+                rel="noopener noreferrer" 
+                className="text-pink-600 hover:text-pink-700"
+              >
+                <Instagram size={24} />
+              </a>
+            </div>
+          </div>
         </div>
       )}
 
       {/* Home Section */}
       <section id="home" className="relative h-screen flex items-center justify-center">
         <Image
-          src="/hover.jpg"
+          src="/post.jpg"
           alt="Jeffal Car Hero"
           layout="fill"
           objectFit="cover"
@@ -400,10 +509,10 @@ export function HomePage() {
       </section>
 
       {/* Catalog Section */}
-      <section id="catalog" className="py-20">
+      <section id="catalog" className="py-10 md:py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">{t.ourFleet}</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">{t.ourFleet}</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
             {cars.map((car, index) => (
               <Card 
                 key={index} 
@@ -425,7 +534,9 @@ export function HomePage() {
                 <CardContent className="p-4">
                   <h3 className="text-xl font-semibold mb-2">{car.name}</h3>
                   <p className="text-blue-800">{car.type}</p>
-                  <p className="text-blue-600 font-semibold mt-2">{car.price}</p>
+                  <p className="text-blue-600 font-semibold mt-2">
+                    {language === 'FR' ? 'À partir de ' : 'ابتداء من '}{car.price}
+                  </p>
                 </CardContent>
               </Card>
             ))}
@@ -461,10 +572,12 @@ export function HomePage() {
                 <div className="flex justify-between items-start mb-6">
                   <div>
                     <h2 className="text-2xl font-bold text-black">{selectedCar.name}</h2>
-                    <p className="text-blue-600 font-semibold text-lg">{selectedCar.price}</p>
+                    <p className="text-blue-600 font-semibold text-lg">
+                      {language === 'FR' ? 'À partir de ' : 'ابتداء من '}{selectedCar.price}
+                    </p>
                   </div>
                   <span className="px-3 py-1 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                    {t[selectedCar.type.toLowerCase() as 'economical' | 'suv']}
+                    {selectedCar.type}
                   </span>
                 </div>
 
@@ -484,7 +597,11 @@ export function HomePage() {
                   </div>
                   <div className="flex items-center gap-2">
                     <Cog className="h-5 w-5 text-[#FFD700]" />
-                    <span className="text-black">{t?.carFeatures?.manual}</span>
+                    <span className="text-black">
+                      {selectedCar.transmission === 'Automatique' ? 
+                        (language === 'FR' ? 'Automatique' : 'أوتوماتيك') : 
+                        (language === 'FR' ? 'Manuelle' : 'يدوي')}
+                    </span>
                   </div>
                 </div>
 
@@ -492,7 +609,9 @@ export function HomePage() {
                 <div className="bg-blue-50 p-4 rounded-lg mb-6">
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-black">{t?.dailyPrice || 'Prix journalier'}</span>
-                    <span className="font-semibold text-blue-800">{selectedCar.price}</span>
+                    <span className="font-semibold text-blue-800">
+                      {language === 'FR' ? 'À partir de ' : 'ابتداء من '}{selectedCar.price}
+                    </span>
                   </div>
                   <div className="flex justify-between items-center mb-2">
                     <span className="text-black">{t?.insurance || 'Assurance incluse'}</span>
@@ -500,7 +619,7 @@ export function HomePage() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-black">{t?.mileage || 'Kilométrage'}</span>
-                    <span className="font-semibold text-blue-800">{t?.unlimited || 'Illimité'}</span>
+                    <span className="font-semibold text-blue-800">{t?.mileageLimit || '250 km/jour'}</span>
                   </div>
                 </div>
 
@@ -519,11 +638,10 @@ export function HomePage() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-20 bg-gradient-to-b from-white to-blue-50">
+      <section id="about" className="py-10 md:py-20 bg-gradient-to-b from-white to-blue-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-16 text-center">{t.aboutTitle} Jeffal Car</h2>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-16 text-center">{t.aboutTitle} Jeffal Car</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {/* Vision Card */}
             <div className="group hover:scale-105 transition-all duration-300">
               <Card className="h-full bg-white/50 backdrop-blur-sm border-none shadow-lg hover:shadow-xl">
@@ -629,14 +747,13 @@ export function HomePage() {
       </section>
 
       {/* Airport Shuttle Section */}
-      <section className="py-20 bg-blue-50">
+      <section className="py-10 md:py-20 bg-blue-50">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">{t.airportService}</h2>
-          <p className="text-center text-lg mb-12 text-gray-700">
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">{t.airportService}</h2>
+          <p className="text-center text-base md:text-lg mb-8 md:mb-12 text-gray-700">
             {t.airportSubtitle}
           </p>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8">
             {/* Casablanca Airport Card */}
             <div className="group hover:scale-105 transition-all duration-300">
               <Card className="h-full bg-white shadow-lg hover:shadow-xl">
@@ -683,13 +800,13 @@ export function HomePage() {
               </Card>
             </div>
 
-            {/* Tangier Airport Card */}
+            {/* Oujda Airport Card */}
             <div className="group hover:scale-105 transition-all duration-300">
               <Card className="h-full bg-white shadow-lg hover:shadow-xl">
                 <div className="relative h-48">
                   <Image
-                    src="/tan.jpeg"
-                    alt={t?.airports?.tangier?.name || "Aéroport de Tanger"}
+                    src="/oujda.jpg"
+                    alt={t?.airports?.oujda?.name || "Aéroport d'Oujda"}
                     layout="fill"
                     objectFit="cover"
                     className="rounded-t-lg"
@@ -697,10 +814,10 @@ export function HomePage() {
                 </div>
                 <CardContent className="p-6 text-center">
                   <h3 className="text-xl font-semibold text-blue-800">
-                    {t?.airports?.tangier?.name || "Aéroport de Tanger"}
+                    {t?.airports?.oujda?.name || "Aéroport d'Oujda"}
                   </h3>
                   <p className="mt-2 text-gray-600">
-                    {t?.airports?.tangier?.fullName || "Ibn Battouta Airport"}
+                    {t?.airports?.oujda?.fullName || "Angads Airport"}
                   </p>
                 </CardContent>
               </Card>
@@ -722,23 +839,25 @@ export function HomePage() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-20">
+      <section id="contact" className="py-10 md:py-20">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold mb-12 text-center">{t.findUs}</h2>
-          <div className="flex flex-col lg:flex-row items-center justify-between">
-            <div className="w-full lg:w-2/3 mb-8 lg:mb-0">
-              <div className="aspect-w-16 aspect-h-12 rounded-lg overflow-hidden shadow-lg">
-                <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d344.9067172352433!2d-1.8936560150600472!3d34.67176688022473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd786300682d8883%3A0x976c8d66703b3fc1!2sHammam%20antalya!5e0!3m2!1sfr!2sma!4v1731076182226!5m2!1sfr!2sma"
-                  width="100%"
-                  height="100%"
-                  style={{ border: 0, minHeight: "500px" }}
-                  allowFullScreen
-                  loading="lazy"
-                  referrerPolicy="no-referrer-when-downgrade"
-                ></iframe>
-              </div>
+          <h2 className="text-2xl md:text-3xl font-bold mb-8 md:mb-12 text-center">{t.findUs}</h2>
+          <div className="flex flex-col lg:flex-row items-center justify-between space-y-8 lg:space-y-0">
+            {/* Map */}
+            <div className="w-full lg:w-2/3 h-[300px] md:h-[500px]">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d344.9067172352433!2d-1.8936560150600472!3d34.67176688022473!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd786300682d8883%3A0x976c8d66703b3fc1!2sHammam%20antalya!5e0!3m2!1sfr!2sma!4v1731076182226!5m2!1sfr!2sma"
+                width="100%"
+                height="100%"
+                style={{ border: 0 }}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                className="rounded-lg shadow-lg"
+              ></iframe>
             </div>
+
+            {/* Contact Info */}
             <div className="w-full lg:w-1/3 lg:pl-12">
               <Card className="bg-white shadow-lg">
                 <CardContent className="p-6">
@@ -746,7 +865,7 @@ export function HomePage() {
                   <div className="space-y-4">
                     <div className="flex items-center">
                       <MapPin className="text-[#FFD700] mr-4" size={38} />
-                      <p>N 3, BD EL MAHDAOUI BENSAID LOT BENAHMIDA ET EL AMRI, Oujda 60000</p>
+                      <p>HAY ZAITOUN BD ABDRERAHIM BOUBID LOT MNIA NR 26, Oujda 60000</p>
                     </div>
                     <div className="flex items-center">
                       <Phone className="text-[#FFD700] mr-4" size={24} />
@@ -775,9 +894,9 @@ export function HomePage() {
       </section>
 
       {/* Footer */}
-      <footer className="bg-blue-900 text-white py-8">
+      <footer className="bg-blue-900 text-white py-6 md:py-8">
         <div className="container mx-auto px-4">
-          <div className="flex flex-col md:flex-row justify-between items-center">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="mb-4 md:mb-0">
               <p>&copy; 2023 Jeffal Car. {t.rights}</p>
             </div>
